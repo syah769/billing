@@ -13,4 +13,4 @@ REPLIT_PHP_EXEC = "php"
 
 [http_server]
 directory = "."
-port = 8080
+port = 8000
