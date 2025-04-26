@@ -123,7 +123,12 @@ if (!isset($_SESSION["mikhmon"])) {
 
   include_once('./include/headhtml.php');
 
-  include_once('./include/menu.php');
+  // Include the appropriate menu based on user type
+  if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "client") {
+    include_once('./include/client_menu.php');
+  } else {
+    include_once('./include/menu.php');
+  }
 
   $disable_sci = '<script>
   document.getElementById("comment").onkeypress = function(e) {

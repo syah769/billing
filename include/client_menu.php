@@ -290,34 +290,6 @@ if ($idleto != "disable") {
       <h3><?= $identity; ?></h3>
     </div>
     <a href="./?session=<?= $session; ?>" class="menu <?= $shome; ?>"><i class="fa fa-dashboard"></i> <?= $_dashboard ?></a>
-    <!--hotspot-->
-    <div class="dropdown-btn <?= $susers . $suserprof . $sactive . $shosts . $sipbind . $scookies; ?>"><i class="fa fa-wifi"></i> Hotspot
-      <i class="fa fa-caret-down"></i>
-    </div>
-    <div class="dropdown-container <?= $umenu . $upmenu . $hamenu . $hmenu . $ibmenu . $cmenu; ?>">
-      <!--users-->
-      <div class="dropdown-btn <?= $susers; ?>"><i class="fa fa-users"></i> <?= $_users ?>
-        <i class="fa fa-caret-down"></i>
-      </div>
-      <div class="dropdown-container <?= $umenu; ?>">
-        <a href="./?hotspot=users&profile=all&session=<?= $session; ?>" class="<?= $susersl; ?>"> &nbsp;&nbsp;&nbsp;<i class="fa fa-list "></i> <?= $_user_list ?> </a>
-      </div>
-      <!--profile-->
-      <div class="dropdown-btn <?= $suserprof; ?>"><i class=" fa fa-pie-chart"></i> <?= $_user_profile ?>
-        <i class="fa fa-caret-down"></i>
-      </div>
-      <div class="dropdown-container <?= $upmenu; ?>">
-        <a href="./?hotspot=user-profiles&session=<?= $session; ?>" class=" <?= $suserprofiles; ?>"> &nbsp;&nbsp;&nbsp;<i class="fa fa-list "></i> <?= $_user_profile_list ?> </a>
-      </div>
-      <!--active-->
-      <a href="./?hotspot=active&session=<?= $session; ?>" class="menu <?= $sactive; ?>"><i class=" fa fa-wifi"></i> <?= $_hotspot_active ?></a>
-      <!--hosts-->
-      <a href="./?hotspot=hosts&session=<?= $session; ?>" class="menu <?= $shosts; ?>"><i class=" fa fa-laptop"></i> <?= $_hosts ?></a>
-      <!--ip bindings-->
-      <a href="./?hotspot=ipbinding&session=<?= $session; ?>" class="menu <?= $sipbind; ?>"><i class=" fa fa-address-book"></i> <?= $_ip_bindings ?></a>
-      <!--cookies-->
-      <a href="./?hotspot=cookies&session=<?= $session; ?>" class="menu <?= $scookies; ?>"><i class=" fa fa-hourglass"></i> <?= $_hotspot_cookies ?></a>
-    </div>
     <!--quick print-->
     <a href="./?hotspot=quick-print&session=<?= $session; ?>" class="menu <?= $squick; ?>"> <i class="fa fa-print"></i> <?= $_quick_print ?> </a>
     <!--vouchers-->
