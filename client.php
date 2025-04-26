@@ -82,6 +82,7 @@ if ($id == "login" || substr($url, -1) == "p") {
 
     if ($user == $useradm && $pass == decrypt($passadm)) {
       $_SESSION["mikhmon"] = $user;
+      $_SESSION["user_type"] = "client"; // Set user type as client
       echo "<script>window.location='./client.php?id=sessions'</script>";
     } else {
       $error = '<div style="width: 100%; padding:5px 0px 5px 0px; border-radius:5px;" class="bg-danger"><i class="fa fa-ban"></i> Alert!<br>Invalid username or password.</div>';

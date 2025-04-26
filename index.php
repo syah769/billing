@@ -235,8 +235,8 @@ if (!isset($_SESSION["mikhmon"])) {
 
   // add hotspot user
   elseif ($hotspotuser == "add") {
-    // Check if the user is accessing from client.php (client user)
-    if (strpos($_SERVER['HTTP_REFERER'], 'client.php') !== false) {
+    // Check if the user is a client user based on session variable
+    if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "client") {
       // Restrict access to voucher creation for client users
       echo "<b class='cl-w'><i class='fa fa-ban'></i> Access Denied: You don't have permission to create vouchers.</b>";
       echo "<script>window.location='./?session=" . $session . "'</script>";
@@ -249,8 +249,8 @@ if (!isset($_SESSION["mikhmon"])) {
 
   // add hotspot user
   elseif ($hotspotuser == "generate") {
-    // Check if the user is accessing from client.php (client user)
-    if (strpos($_SERVER['HTTP_REFERER'], 'client.php') !== false) {
+    // Check if the user is a client user based on session variable
+    if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "client") {
       // Restrict access to voucher generation for client users
       echo "<b class='cl-w'><i class='fa fa-ban'></i> Access Denied: You don't have permission to generate vouchers.</b>";
       echo "<script>window.location='./?session=" . $session . "'</script>";
@@ -367,8 +367,8 @@ if (!isset($_SESSION["mikhmon"])) {
 
   // template editor
   elseif ($hotspot == "template-editor") {
-    // Check if the user is accessing from client.php (client user)
-    if (strpos($_SERVER['HTTP_REFERER'], 'client.php') !== false) {
+    // Check if the user is a client user based on session variable
+    if (isset($_SESSION["user_type"]) && $_SESSION["user_type"] == "client") {
       // Restrict access to template editor for client users
       echo "<b class='cl-w'><i class='fa fa-ban'></i> Access Denied: You don't have permission to edit voucher templates.</b>";
       echo "<script>window.location='./?session=" . $session . "'</script>";

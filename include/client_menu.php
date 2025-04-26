@@ -141,7 +141,7 @@ if (!isset($_SESSION["mikhmon"])) {
     $sabout = "active";
   } elseif ($id == "sessions" || $id == "remove" || $router == "new") {
     $ssesslist = "active";
-    $mpage = $_admin_settings;
+    $mpage = "Client Settings";
   } elseif ($id == "settings" && $session == "new") {
     $snsettings = "active";
     $mpage = $_add_router;
@@ -181,7 +181,6 @@ if ($idleto != "disable") {
     </div>
     <div class="navbar-right">
       <a id="logout" href="./client.php?id=logout"><i class="fa fa-sign-out mr-1"></i> <?= $_logout ?></a>
-      <a href="./admin.php?id=sessions" title="Switch to Admin Panel"><i class="fa fa-user-circle mr-1"></i> Admin Panel</a>
       <select class="stheme ses text-right mr-t-10 pd-5">
         <option> <?= $_theme ?></option>
         <?php for ($i = 0; $i < count($mtheme); $i++) {
@@ -219,7 +218,7 @@ if ($idleto != "disable") {
       <div class="menu spa"></div>
     <?php
     } ?>
-    <a href="./client.php?id=sessions" class="menu <?= $ssesslist; ?>"><i class="fa fa-gear"></i> <?= $_admin_settings ?></a>
+    <a href="./client.php?id=sessions" class="menu <?= $ssesslist; ?>"><i class="fa fa-gear"></i> Client Settings</a>
     <a href="./client.php?id=about" class="menu <?= $sabout; ?>"><i class="fa fa-info-circle"></i> <?= $_about ?></a>
 
   </div>

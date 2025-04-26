@@ -317,9 +317,11 @@ if ($idleto != "disable") {
       <div class="dropdown-container <?= $umenu; ?>">
         <a href="./?hotspot=users&profile=all&session=<?= $session; ?>" class="<?= $susersl; ?>">
           &nbsp;&nbsp;&nbsp;<i class="fa fa-list "></i> <?= $_user_list ?> </a>
-        <!-- Voucher creation links for admin users -->
-        <a href="./?hotspot-user=add&session=<?= $session; ?>" class="<?= $sadduser; ?>"> &nbsp;&nbsp;&nbsp;<i class="fa fa-user-plus "></i> <?= $_add_user ?> </a>
-        <a href="./?hotspot-user=generate&session=<?= $session; ?>" class="<?= $sgenuser; ?>"> &nbsp;&nbsp;&nbsp;<i class="fa fa-user-plus"></i> <?= $_generate ?> </a>
+        <?php if (!isset($_SESSION["user_type"]) || $_SESSION["user_type"] != "client"): ?>
+          <!-- Voucher creation links for admin users -->
+          <a href="./?hotspot-user=add&session=<?= $session; ?>" class="<?= $sadduser; ?>"> &nbsp;&nbsp;&nbsp;<i class="fa fa-user-plus "></i> <?= $_add_user ?> </a>
+          <a href="./?hotspot-user=generate&session=<?= $session; ?>" class="<?= $sgenuser; ?>"> &nbsp;&nbsp;&nbsp;<i class="fa fa-user-plus"></i> <?= $_generate ?> </a>
+        <?php endif; ?>
       </div>
       <!--profile-->
       <div class="dropdown-btn <?= $suserprof; ?>"><i class=" fa fa-pie-chart"></i> <?= $_user_profile ?>

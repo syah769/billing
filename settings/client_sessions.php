@@ -41,7 +41,7 @@ if (!isset($_SESSION["mikhmon"])) {
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title"><i class="fa fa-gear"></i> <?= $_admin_settings ?> &nbsp; | &nbsp;&nbsp;<i onclick="location.reload();" class="fa fa-refresh pointer " title="Reload data"></i></h3>
+        <h3 class="card-title"><i class="fa fa-gear"></i> Client Settings &nbsp; | &nbsp;&nbsp;<i onclick="location.reload();" class="fa fa-refresh pointer " title="Reload data"></i></h3>
       </div>
       <div class="card-body">
         <div class="row">
@@ -92,7 +92,7 @@ if (!isset($_SESSION["mikhmon"])) {
         <div class="col-6">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title"><i class="fa fa-user-circle"></i> <?= $_admin ?></h3>
+              <h3 class="card-title"><i class="fa fa-user-circle"></i> Client</h3>
             </div>
             <div class="card-body">
               <div class="alert bg-info">

@@ -79,10 +79,15 @@ if (!isset($_SESSION["mikhmon"])) {
             <?php
             if ($counttuser == 0) {
               echo "<script>window.location='./?hotspot=users&profile=all&session=" . $session . "</script>";
-            } ?>
-            &nbsp; | &nbsp; <a href="./?hotspot-user=add&session=<?= $session; ?>" title="Add User"><i class="fa fa-user-plus"></i> <?= $_add ?></a>
-            &nbsp; | &nbsp; <a href="./?hotspot-user=generate&session=<?= $session; ?>" title="Generate User"><i class="fa fa-users"></i> <?= $_generate ?></a>
-            &nbsp; | &nbsp; <a href="<?= str_replace("=users", "=export-users", $url); ?>&export=script" title="Download User List as Mikrotik Script"><i class="fa fa-download"></i> Script</a>&nbsp; | &nbsp; <a href="<?= str_replace("=users", "=export-users", $url); ?>&export=csv" title="Download User List as CSV"><i class="fa fa-download"></i> CSV</a>
+            }
+
+            // Only show these buttons for admin users
+            if (!isset($_SESSION["user_type"]) || $_SESSION["user_type"] != "client") {
+            ?>
+              &nbsp; | &nbsp; <a href="./?hotspot-user=add&session=<?= $session; ?>" title="Add User"><i class="fa fa-user-plus"></i> <?= $_add ?></a>
+              &nbsp; | &nbsp; <a href="./?hotspot-user=generate&session=<?= $session; ?>" title="Generate User"><i class="fa fa-users"></i> <?= $_generate ?></a>
+              &nbsp; | &nbsp; <a href="<?= str_replace("=users", "=export-users", $url); ?>&export=script" title="Download User List as Mikrotik Script"><i class="fa fa-download"></i> Script</a>&nbsp; | &nbsp; <a href="<?= str_replace("=users", "=export-users", $url); ?>&export=csv" title="Download User List as CSV"><i class="fa fa-download"></i> CSV</a>
+            <?php } ?>
           </span> &nbsp;
           <small id="loader" style="display: none;"><i><i class='fa fa-circle-o-notch fa-spin'></i> <?= $_processing ?> </i></small>
         </h3>
@@ -141,7 +146,7 @@ if (!isset($_SESSION["mikhmon"])) {
           <div class="col-6">
             <?php if ($comm != "") { ?>
               <button class="btn bg-red" onclick="if(confirm('Are you sure to delete username by comment (<?= $comm; ?>)?')){loadpage('./?remove-hotspot-user-by-comment=<?= $comm; ?>&session=<?= $session; ?>');loader();}else{}" title="Remove user by comment <?= $comm; ?>"> <i class="fa fa-trash"></i> <?= $_by_comment ?></button>
-            <?php;
+            <?php
             } else if ($exp == "1") { ?>
               <button class="btn bg-red" onclick="if(confirm('Are you sure to delete users?')){loadpage('./?remove-hotspot-user-expired=1&session=<?= $session; ?>');loader();}else{}" title="Remove user expired"> <i class="fa fa-trash"></i> Expired Users</button>
             <?php } ?>
@@ -163,9 +168,11 @@ if (!isset($_SESSION["mikhmon"])) {
                 }
               }
             </script>
-            <button class="btn bg-primary" title='Print' onclick="printV('qr','no');"><i class="fa fa-print"></i> <?= $_print_default ?></button>
-            <button class="btn bg-primary" title='Print QR' onclick="printV('qr','yes');"><i class="fa fa-print"></i> <?= $_print_qr ?></button>
-            <button class="btn bg-primary" title='Print Small' onclick="printV('small','yes');"><i class="fa fa-print"></i> <?= $_print_small ?></button>
+            <?php if (!isset($_SESSION["user_type"]) || $_SESSION["user_type"] != "client") { ?>
+              <button class="btn bg-primary" title='Print' onclick="printV('qr','no');"><i class="fa fa-print"></i> <?= $_print_default ?></button>
+              <button class="btn bg-primary" title='Print QR' onclick="printV('qr','yes');"><i class="fa fa-print"></i> <?= $_print_qr ?></button>
+              <button class="btn bg-primary" title='Print Small' onclick="printV('small','yes');"><i class="fa fa-print"></i> <?= $_print_small ?></button>
+            <?php } ?>
           </div>
         </div>
         <div class="overflow mr-t-10 box-bordered" style="max-height: 75vh">
