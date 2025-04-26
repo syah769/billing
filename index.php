@@ -235,16 +235,29 @@ if (!isset($_SESSION["mikhmon"])) {
 
   // add hotspot user
   elseif ($hotspotuser == "add") {
-    // Restrict access to voucher creation
-    echo "<b class='cl-w'><i class='fa fa-ban'></i> Access Denied: You don't have permission to create vouchers.</b>";
-    echo "<script>window.location='./?session=" . $session . "'</script>";
+    // Check if the user is accessing from client.php (client user)
+    if (strpos($_SERVER['HTTP_REFERER'], 'client.php') !== false) {
+      // Restrict access to voucher creation for client users
+      echo "<b class='cl-w'><i class='fa fa-ban'></i> Access Denied: You don't have permission to create vouchers.</b>";
+      echo "<script>window.location='./?session=" . $session . "'</script>";
+    } else {
+      // Allow admin users to create vouchers
+      $_SESSION['hua'] = "";
+      include_once('./hotspot/adduser.php');
+    }
   }
 
   // add hotspot user
   elseif ($hotspotuser == "generate") {
-    // Restrict access to voucher generation
-    echo "<b class='cl-w'><i class='fa fa-ban'></i> Access Denied: You don't have permission to generate vouchers.</b>";
-    echo "<script>window.location='./?session=" . $session . "'</script>";
+    // Check if the user is accessing from client.php (client user)
+    if (strpos($_SERVER['HTTP_REFERER'], 'client.php') !== false) {
+      // Restrict access to voucher generation for client users
+      echo "<b class='cl-w'><i class='fa fa-ban'></i> Access Denied: You don't have permission to generate vouchers.</b>";
+      echo "<script>window.location='./?session=" . $session . "'</script>";
+    } else {
+      // Allow admin users to generate vouchers
+      include_once('./hotspot/generateuser.php');
+    }
   }
 
   // hotspot users filter by name
@@ -354,9 +367,15 @@ if (!isset($_SESSION["mikhmon"])) {
 
   // template editor
   elseif ($hotspot == "template-editor") {
-    // Restrict access to template editor
-    echo "<b class='cl-w'><i class='fa fa-ban'></i> Access Denied: You don't have permission to edit voucher templates.</b>";
-    echo "<script>window.location='./?session=" . $session . "'</script>";
+    // Check if the user is accessing from client.php (client user)
+    if (strpos($_SERVER['HTTP_REFERER'], 'client.php') !== false) {
+      // Restrict access to template editor for client users
+      echo "<b class='cl-w'><i class='fa fa-ban'></i> Access Denied: You don't have permission to edit voucher templates.</b>";
+      echo "<script>window.location='./?session=" . $session . "'</script>";
+    } else {
+      // Allow admin users to edit templates
+      include_once('./hotspot/templateeditor.php');
+    }
   }
 
   // upload logo

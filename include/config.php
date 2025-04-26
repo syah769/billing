@@ -8,3 +8,5 @@ $data['mikhmon'] = array('1' => 'mikhmon<|<mikhmon', 'mikhmon>|>r5qYoZWXq5I=');
 
 $data['serudung-adi'] = array('1' => 'serudung-adi!wifidesa.starlinkestet.ggff.net:10222', 'serudung-adi@|@admin', 'serudung-adi#|#g3KEgX5jamJk', 'serudung-adi%WIFI-DESA', 'serudung-adi^wifi-desa.net', 'serudung-adi&Rm', 'serudung-adi*10', 'serudung-adi(1', 'serudung-adi)', 'serudung-adi=10', 'serudung-adi@!@disable');
 $data['serudung-sukri'] = array('1' => 'serudung-sukri!wifidesa.starlinkestet.ggff.net:10333', 'serudung-sukri@|@admin', 'serudung-sukri#|#qpaTpJ6XapiTmqCZmXGZpZKbpF+Vp54=', 'serudung-sukri%WIFI-DESA', 'serudung-sukri^wifi-desa.net', 'serudung-sukri&RM', 'serudung-sukri*10', 'serudung-sukri(1', 'serudung-sukri)', 'serudung-sukri=10', 'serudung-sukri@!@disable');
+
+$data['new-9885'] = array ('1'=>'new-9885!','new-9885@|@','new-9885#|#','new-9885%','new-9885^','new-9885&Rp','new-9885*10','new-9885(1','new-9885)','new-9885=10','new-9885@!@disable');
