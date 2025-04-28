@@ -170,9 +170,9 @@ if (!isset($_SESSION["mikhmon"])) {
     include_once('./report/userlog.php');
   }
 
-  // about
+  // about - redirect to dashboard instead
   elseif ($hotspot == "about") {
-    include_once('./include/about.php');
+    echo "<script>window.location='./?session=" . $session . "'</script>";
   }
 
   // bad request

@@ -230,7 +230,6 @@ if ($idleto != "disable") {
       <?= $_admin_settings ?></a>
     <a href="./admin.php?id=settings&router=new-<?= rand(1111, 9999) ?>" class="menu <?= $snsettings ?>"><i
         class="fa fa-plus"></i> <?= $_add_router ?></a>
-    <a href="./admin.php?id=about" class="menu <?= $sabout; ?>"><i class="fa fa-info-circle"></i> <?= $_about ?></a>
 
   </div>
 
@@ -397,10 +396,6 @@ if ($idleto != "disable") {
       <!-- Template editor for admin users -->
       <a href="./?hotspot=template-editor&template=default&session=<?= $session; ?>" class="menu <?= $teditor; ?>"> <i class="fa fa-edit "></i> <?= $_template_editor ?> </a>
     </div>
-    <!--about-->
-    <a href="./?hotspot=about&session=<?= $session; ?>" class="menu <?= $sabout; ?>"><i class="fa fa-info-circle"></i>
-      <?= $_about ?></a>
-
   </div>
   <script>
     $(document).ready(function() {

@@ -219,7 +219,6 @@ if ($idleto != "disable") {
     <?php
     } ?>
     <a href="./client.php?id=sessions" class="menu <?= $ssesslist; ?>"><i class="fa fa-gear"></i> Client Settings</a>
-    <a href="./client.php?id=about" class="menu <?= $sabout; ?>"><i class="fa fa-info-circle"></i> <?= $_about ?></a>
 
   </div>
 
@@ -315,9 +314,6 @@ if ($idleto != "disable") {
     <a href="./?interface=traffic-monitor&session=<?= $session; ?>" class="menu <?= $strafficmonitor; ?>"><i class=" fa fa-area-chart"></i> <?= $_traffic_monitor ?></a>
     <!--report-->
     <a href="./?report=selling&idbl=<?= date("m") . date("Y"); ?>&session=<?= $session; ?>" class="menu <?= $sselling; ?>"><i class="nav-icon fa fa-money"></i> <?= $_report ?></a>
-    <!--about-->
-    <a href="./?hotspot=about&session=<?= $session; ?>" class="menu <?= $sabout; ?>"><i class="fa fa-info-circle"></i> <?= $_about ?></a>
-
   </div>
   <script>
     $(document).ready(function() {
