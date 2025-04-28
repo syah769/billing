@@ -34,12 +34,19 @@ $iface = explode('(', $data[$session][8])[1];
 $infolp = explode(')', $data[$session][9])[1];
 $idleto = explode('=', $data[$session][10])[1];
 $sesname = explode('+', $data[$session][10])[1];
-$useradm = explode('<|<', $data['mikhmon'][1])[1];
-$passadm = explode('>|>', $data['mikhmon'][2])[1];
+
+// Client Login Credentials (also used by default for backward compatibility)
+$client_user = explode('<|<', $data['mikhmon'][1])[1];
+$client_pass = explode('>|>', $data['mikhmon'][2])[1];
+$useradm = $client_user; // Keep for client.php compatibility
+$passadm = $client_pass; // Keep for client.php compatibility
+
+// Admin Login Credentials
+$admin_user = explode('<|<', $data['admin_login'][1])[1];
+$admin_pass = explode('>|>', $data['admin_login'][2])[1];
+
 $livereport = explode('@!@', $data[$session][11])[1];
 
 $cekindo['indo'] = array(
     'RP', 'Rp', 'rp', 'IDR', 'idr', 'RP.', 'Rp.', 'rp.', 'IDR.', 'idr.',
 );
-
-

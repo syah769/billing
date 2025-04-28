@@ -76,14 +76,14 @@ if ($id == "login" || substr($url, -1) == "p") {
 
     // Debug information
     $debug_info = "User Input: " . $user . "<br>";
-    $debug_info .= "Expected User: " . $useradm . "<br>";
-    $debug_info .= "Encrypted Password in Config: " . $passadm . "<br>";
-    $debug_info .= "Decrypted Password: " . decrypt($passadm) . "<br>";
+    $debug_info .= "Expected User: " . $admin_user . "<br>"; // Use admin user variable
+    $debug_info .= "Encrypted Password in Config: " . $admin_pass . "<br>"; // Use admin pass variable
+    $debug_info .= "Decrypted Password: " . decrypt($admin_pass) . "<br>"; // Use admin pass variable
 
     // Write to debug file
     file_put_contents('./debug.log', $debug_info, FILE_APPEND);
 
-    if ($user == $useradm && $pass == decrypt($passadm)) {
+    if ($user == $admin_user && $pass == decrypt($admin_pass)) { // Check against admin credentials
       $_SESSION["mikhmon"] = $user;
       $_SESSION["user_type"] = "admin"; // Set user type as admin
       echo "<script>window.location='./admin.php?id=sessions'</script>";

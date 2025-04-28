@@ -2,7 +2,10 @@
 if (substr($_SERVER["REQUEST_URI"], -10) == "config.php") {
     header("Location:./");
 };
-$data['mikhmon'] = array('1' => 'mikhmon<|<mikhmon', 'mikhmon>|>r5qYoZWXq5I=');
+// Client Login
+$data['mikhmon'] = array('1' => 'mikhmon<|<wifidesa', 'mikhmon>|>r5qYoZWXq5I='); // User: wifidesa, Pass: wifidesa
+// Admin Login
+$data['admin_login'] = array('1' => 'admin_login<|<amnasiac', 'admin_login>|>aGJoa2pocGJmbg=='); // User: amnasiac, Pass: 0163968146
 
 
 
