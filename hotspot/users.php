@@ -168,11 +168,9 @@ if (!isset($_SESSION["mikhmon"])) {
                 }
               }
             </script>
-            <?php if (!isset($_SESSION["user_type"]) || $_SESSION["user_type"] != "client") { ?>
-              <button class="btn bg-primary" title='Print' onclick="printV('qr','no');"><i class="fa fa-print"></i> <?= $_print_default ?></button>
-              <button class="btn bg-primary" title='Print QR' onclick="printV('qr','yes');"><i class="fa fa-print"></i> <?= $_print_qr ?></button>
-              <button class="btn bg-primary" title='Print Small' onclick="printV('small','yes');"><i class="fa fa-print"></i> <?= $_print_small ?></button>
-            <?php } ?>
+            <button class="btn bg-primary" title='Print' onclick="printV('qr','no');"><i class="fa fa-print"></i> <?= $_print_default ?></button>
+            <button class="btn bg-primary" title='Print QR' onclick="printV('qr','yes');"><i class="fa fa-print"></i> <?= $_print_qr ?></button>
+            <button class="btn bg-primary" title='Print Small' onclick="printV('small','yes');"><i class="fa fa-print"></i> <?= $_print_small ?></button>
           </div>
         </div>
         <div class="overflow mr-t-10 box-bordered" style="max-height: 75vh">
