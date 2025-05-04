@@ -13,3 +13,5 @@ $data['serudung-adi'] = array('1' => 'serudung-adi!wifidesa.starlinkestet.ggff.n
 $data['serudung-sukri'] = array('1' => 'serudung-sukri!wifidesa.starlinkestet.ggff.net:10333', 'serudung-sukri@|@admin', 'serudung-sukri#|#qpaTpJ6XapiTmqCZmXGZpZKbpF+Vp54=', 'serudung-sukri%WIFI-DESA', 'serudung-sukri^wifi-desa.net', 'serudung-sukri&RM', 'serudung-sukri*10', 'serudung-sukri(1', 'serudung-sukri)', 'serudung-sukri=10', 'serudung-sukri@!@disable');
 
 $data['new-9885'] = array ('1'=>'new-9885!','new-9885@|@','new-9885#|#','new-9885%','new-9885^','new-9885&Rp','new-9885*10','new-9885(1','new-9885)','new-9885=10','new-9885@!@disable');
+
+$data['new-4112'] = array ('1'=>'new-4112!','new-4112@|@','new-4112#|#','new-4112%','new-4112^','new-4112&Rp','new-4112*10','new-4112(1','new-4112)','new-4112=10','new-4112@!@disable');

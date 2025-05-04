@@ -139,8 +139,33 @@ if ($id == "login" || substr($url, -1) == "p") {
 } elseif ($id == "logout") {
   include_once('./include/client_menu.php');
   echo "<b class='cl-w'><i class='fa fa-circle-o-notch fa-spin' style='font-size:24px'></i> Logout...</b>";
+
+  // Clear all session variables
+  $_SESSION = array();
+
+  // If it's desired to kill the session, also delete the session cookie
+  if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000,
+      $params["path"], $params["domain"],
+      $params["secure"], $params["httponly"]
+    );
+  }
+
+  // Finally, destroy the session
   session_destroy();
-  echo "<script>window.location='./client.php?id=login'</script>";
+
+  // Clear any browser cache/history to prevent back button from showing logged-in pages
+  echo "<script>
+    // Clear browser cache and history
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function () {
+      window.history.pushState(null, null, window.location.href);
+    };
+
+    // Redirect to login page
+    window.location='./client.php?id=login';
+  </script>";
 } elseif (empty($id)) {
   echo "<script>window.location='./client.php?id=sessions'</script>";
 }

@@ -34,15 +34,17 @@ session_start();
       </div>
       <center>
       <form autocomplete="off" action="" method="post">
+      <input type="hidden" name="prevent_autofill" id="prevent_autofill" value=""/>
+      <input type="password" name="password_fake" id="password_fake" style="display:none"/>
       <table class="table" style="width:90%">
         <tr>
           <td class="align-middle text-center">
-            <input style="width: 100%; height: 35px; font-size: 16px;" class="form-control" type="text" name="user" id="_username" placeholder="Username" required="1" autofocus>
+            <input style="width: 100%; height: 35px; font-size: 16px;" class="form-control" type="text" name="user" id="_username" placeholder="Username" required="1" autocomplete="off" autofocus>
           </td>
         </tr>
         <tr>
           <td class="align-middle text-center">
-            <input style="width: 100%; height: 35px; font-size: 16px;" class="form-control" type="password" name="pass" placeholder="Password" required="1">
+            <input style="width: 100%; height: 35px; font-size: 16px;" class="form-control" type="password" name="pass" placeholder="Password" required="1" autocomplete="new-password">
           </td>
         </tr>
         <tr>
