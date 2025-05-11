@@ -32,11 +32,10 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 include_once('./include/browser_detection.php');
 
 // Check if user is using Opera Mini - Opera Mini should not access client interface
-if ($id != "login") {
-  $browser_check = checkBrowserAccess('client');
-  if ($browser_check['redirect']) {
-    performRedirect($browser_check['target'], $browser_check['message']);
-  }
+// Always check browser type, regardless of page or login status
+$browser_check = checkBrowserAccess('client');
+if ($browser_check['redirect']) {
+  performRedirect($browser_check['target'], $browser_check['message']);
 }
 
 // lang
@@ -190,11 +189,11 @@ if ($id == "login" || substr($url, -1) == "p") {
 }
 ?>
 <?php if ($id == "login" || substr($url, -1) == "p"): ?>
-<script src="js/jquery.min.js"></script>
-<script src="js/login.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/login.js"></script>
 <?php else: ?>
-<script src="js/mikhmon-ui.pink.min.js"></script>
-<script src="js/mikhmon.js?t=<?= str_replace(" ", "_", date("Y-m-d H:i:s")); ?>"></script>
+  <script src="js/mikhmon-ui.pink.min.js"></script>
+  <script src="js/mikhmon.js?t=<?= str_replace(" ", "_", date("Y-m-d H:i:s")); ?>"></script>
 <?php endif; ?>
 <?php include('./include/info.php'); ?>
 </body>

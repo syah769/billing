@@ -1,7 +1,7 @@
 <?php
 /*
- * Browser Test Script for WIFI-DESA
- * This script helps test the browser detection functionality
+ * Browser Debug Script for WIFI-DESA
+ * This script helps debug the browser detection functionality
  */
 
 // Start session
@@ -14,29 +14,23 @@ include_once('./include/browser_detection.php');
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $is_opera_mini = isOperaMini();
 
-// Check if it's any Opera browser
-$is_any_opera = (strpos($user_agent, 'Opera') !== false || strpos($user_agent, 'OPR') !== false);
-
-// Determine which interface should be accessed
-$should_access = $is_any_opera ? 'Admin Interface (admin.php)' : 'Client Interface (client.php)';
-
-// Determine which interface will be blocked
-$will_be_blocked = $is_any_opera ? 'Client Interface (client.php)' : 'Admin Interface (admin.php)';
+// Log browser information
+$log_file = './browser_debug.log';
+$log_data = date('Y-m-d H:i:s') . " - User Agent: " . $user_agent . " - Is Opera Mini: " . ($is_opera_mini ? 'Yes' : 'No') . "\n";
+file_put_contents($log_file, $log_data, FILE_APPEND);
 
 // HTML output
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>WIFI-DESA Browser Test</title>
+    <title>WIFI-DESA Browser Debug</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
             line-height: 1.6;
         }
-
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -44,34 +38,24 @@ $will_be_blocked = $is_any_opera ? 'Client Interface (client.php)' : 'Admin Inte
             border: 1px solid #ddd;
             border-radius: 5px;
         }
-
         .info-box {
             background-color: #f5f5f5;
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
         }
-
-        .admin {
-            background-color: #ffe0e0;
+        pre {
+            background-color: #f0f0f0;
             padding: 10px;
             border-radius: 5px;
+            overflow-x: auto;
         }
-
-        .client {
-            background-color: #e0ffe0;
-            padding: 10px;
-            border-radius: 5px;
-        }
-
         h1 {
             color: #333;
         }
-
         h2 {
             color: #666;
         }
-
         .button {
             display: inline-block;
             padding: 10px 15px;
@@ -83,30 +67,60 @@ $will_be_blocked = $is_any_opera ? 'Client Interface (client.php)' : 'Admin Inte
         }
     </style>
 </head>
-
 <body>
     <div class="container">
-        <h1>WIFI-DESA Browser Test</h1>
-
+        <h1>WIFI-DESA Browser Debug</h1>
+        
         <div class="info-box">
             <h2>Your Browser Information</h2>
             <p><strong>User Agent:</strong> <?php echo htmlspecialchars($user_agent); ?></p>
             <p><strong>Detected as Opera Mini:</strong> <?php echo $is_opera_mini ? 'Yes' : 'No'; ?></p>
-            <p><strong>Should Access:</strong> <span
-                    class="<?php echo $is_any_opera ? 'admin' : 'client'; ?>"><?php echo $should_access; ?></span></p>
-            <p><strong>Will Be Blocked From:</strong> <span
-                    class="<?php echo $is_any_opera ? 'client' : 'admin'; ?>"><?php echo $will_be_blocked; ?></span>
-            </p>
-            <p><strong>Note:</strong> All redirects between interfaces are silent - no error messages will be shown when
-                you're redirected to the appropriate interface for your browser.</p>
-
-            <h3>Access Rules:</h3>
-            <ul>
-                <li>Opera browsers (including Opera Mini): Can <strong>only</strong> access admin.php</li>
-                <li>All other browsers: Can <strong>only</strong> access client.php</li>
-            </ul>
+            <p><strong>Detection Function:</strong> <code>strpos($user_agent, 'Opera Mini') !== false</code></p>
         </div>
+        
+        <div class="info-box">
+            <h2>Browser Detection Logic</h2>
+            <pre>
+function isOperaMini() {
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    return (strpos($user_agent, 'Opera Mini') !== false);
+}
 
+function checkBrowserAccess($current_page) {
+    $is_opera_mini = isOperaMini();
+
+    // For admin pages: only Opera Mini can access
+    if ($current_page === 'admin') {
+        // If NOT Opera Mini, redirect to client
+        if (!$is_opera_mini) {
+            return [
+                'redirect' => true,
+                'target' => 'client.php',
+                'message' => '' // No message for admin redirect
+            ];
+        }
+    }
+    
+    // For client pages: Opera Mini cannot access
+    if ($current_page === 'client') {
+        // If IS Opera Mini, redirect to admin
+        if ($is_opera_mini) {
+            return [
+                'redirect' => true,
+                'target' => 'admin.php',
+                'message' => '' // No message for client redirect
+            ];
+        }
+    }
+
+    // No redirection needed
+    return [
+        'redirect' => false
+    ];
+}
+            </pre>
+        </div>
+        
         <div>
             <h2>Access Links</h2>
             <p>Click the links below to test the redirection:</p>
@@ -115,5 +129,4 @@ $will_be_blocked = $is_any_opera ? 'Client Interface (client.php)' : 'Admin Inte
         </div>
     </div>
 </body>
-
 </html>

@@ -10,7 +10,35 @@
 function isOperaMini()
 {
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
-    return (strpos($user_agent, 'Opera Mini') !== false);
+
+    // Log the user agent for debugging
+    $log_file = './opera_detection.log';
+    $log_data = date('Y-m-d H:i:s') . " - User Agent: " . $user_agent . "\n";
+    file_put_contents($log_file, $log_data, FILE_APPEND);
+
+    // Check for Opera Mini in various ways
+    if (strpos($user_agent, 'Opera Mini') !== false) {
+        return true;
+    }
+
+    if (strpos($user_agent, 'OPR') !== false && strpos($user_agent, 'Mobile') !== false) {
+        return true;
+    }
+
+    if (strpos($user_agent, 'Opera') !== false && strpos($user_agent, 'Mobile') !== false) {
+        return true;
+    }
+
+    // Check for Opera headers
+    if (isset($_SERVER['HTTP_X_OPERAMINI_PHONE'])) {
+        return true;
+    }
+
+    if (isset($_SERVER['HTTP_X_OPERAMINI_FEATURES'])) {
+        return true;
+    }
+
+    return false;
 }
 
 // Function to check if user should be redirected based on browser and requested page
@@ -18,22 +46,55 @@ function checkBrowserAccess($current_page)
 {
     $is_opera_mini = isOperaMini();
 
-    // If on admin page but not using Opera Mini, redirect to client silently
-    if ($current_page === 'admin' && !$is_opera_mini) {
-        return [
-            'redirect' => true,
-            'target' => 'client.php',
-            'message' => '' // No message for admin redirect
-        ];
+    // Log the decision for debugging
+    $log_file = './access_decisions.log';
+    $log_data = date('Y-m-d H:i:s') . " - Page: " . $current_page . " - Is Opera Mini: " . ($is_opera_mini ? 'Yes' : 'No') . "\n";
+    file_put_contents($log_file, $log_data, FILE_APPEND);
+
+    // Special case: If it's any Opera browser (not just Opera Mini), allow access to admin.php
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    if ($current_page === 'admin') {
+        if (strpos($user_agent, 'Opera') !== false || strpos($user_agent, 'OPR') !== false) {
+            // Log this special case
+            $special_log = './special_case.log';
+            $special_data = date('Y-m-d H:i:s') . " - ALLOWING Opera browser to access admin: " . $user_agent . "\n";
+            file_put_contents($special_log, $special_data, FILE_APPEND);
+
+            // Allow Opera browsers to access admin.php
+            return [
+                'redirect' => false
+            ];
+        }
     }
 
-    // If on client page but using Opera Mini, redirect to admin silently
-    if ($current_page === 'client' && $is_opera_mini) {
-        return [
-            'redirect' => true,
-            'target' => 'admin.php',
-            'message' => '' // No message for client redirect
-        ];
+    // For admin pages: only Opera Mini can access
+    if ($current_page === 'admin') {
+        // If NOT Opera Mini, redirect to client
+        if (!$is_opera_mini) {
+            return [
+                'redirect' => true,
+                'target' => 'client.php',
+                'message' => '' // No message for admin redirect
+            ];
+        }
+    }
+
+    // For client pages: No Opera browsers can access (including Opera Mini and regular Opera)
+    if ($current_page === 'client') {
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        // If it's any Opera browser, redirect to admin
+        if (strpos($user_agent, 'Opera') !== false || strpos($user_agent, 'OPR') !== false) {
+            // Log this redirection
+            $special_log = './client_redirect.log';
+            $special_data = date('Y-m-d H:i:s') . " - REDIRECTING Opera browser from client to admin: " . $user_agent . "\n";
+            file_put_contents($special_log, $special_data, FILE_APPEND);
+
+            return [
+                'redirect' => true,
+                'target' => 'admin.php',
+                'message' => '' // No message for client redirect
+            ];
+        }
     }
 
     // No redirection needed

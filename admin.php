@@ -32,11 +32,10 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 include_once('./include/browser_detection.php');
 
 // Check if user is using Opera Mini - only Opera Mini can access admin interface
-if ($id != "login") {
-  $browser_check = checkBrowserAccess('admin');
-  if ($browser_check['redirect']) {
-    performRedirect($browser_check['target'], $browser_check['message']);
-  }
+// Always check browser type, regardless of page or login status
+$browser_check = checkBrowserAccess('admin');
+if ($browser_check['redirect']) {
+  performRedirect($browser_check['target'], $browser_check['message']);
 }
 $c = isset($_GET['c']) ? $_GET['c'] : '';
 $router = isset($_GET['router']) ? $_GET['router'] : '';
