@@ -25,11 +25,22 @@ ob_start("ob_gzhandler");
 $url = $_SERVER['REQUEST_URI'];
 
 // load session MikroTik
-$session = $_GET['session'];
-$id = $_GET['id'];
-$c = $_GET['c'];
-$router = $_GET['router'];
-$logo = $_GET['logo'];
+$session = isset($_GET['session']) ? $_GET['session'] : '';
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+
+// Include browser detection utility
+include_once('./include/browser_detection.php');
+
+// Check if user is using Opera Mini - only Opera Mini can access admin interface
+if ($id != "login") {
+  $browser_check = checkBrowserAccess('admin');
+  if ($browser_check['redirect']) {
+    performRedirect($browser_check['target'], $browser_check['message']);
+  }
+}
+$c = isset($_GET['c']) ? $_GET['c'] : '';
+$router = isset($_GET['router']) ? $_GET['router'] : '';
+$logo = isset($_GET['logo']) ? $_GET['logo'] : '';
 
 $ids = array(
   "editor",
@@ -94,8 +105,7 @@ if ($id == "login" || substr($url, -1) == "p") {
       $_SESSION["mikhmon"] = $user;
       $_SESSION["user_type"] = "admin"; // Set user type as admin
       echo "<script>window.location='./admin.php?id=sessions'</script>";
-    }
-    else {
+    } else {
       $error = '<div style="width: 100%; padding:5px 0px 5px 0px; border-radius:5px;" class="bg-danger"><i class="fa fa-ban"></i> Alert!<br>Invalid username or password.</div>';
       $error .= '<div style="font-size:12px;text-align:left;padding:5px;">' . $debug_info . '</div>';
     }
@@ -184,9 +194,14 @@ if ($id == "login" || substr($url, -1) == "p") {
   // If it's desired to kill the session, also delete the session cookie
   if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000,
-      $params["path"], $params["domain"],
-      $params["secure"], $params["httponly"]
+    setcookie(
+      session_name(),
+      '',
+      time() - 42000,
+      $params["path"],
+      $params["domain"],
+      $params["secure"],
+      $params["httponly"]
     );
   }
 

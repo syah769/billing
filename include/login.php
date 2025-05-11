@@ -17,10 +17,17 @@
  */
 session_start();
 
+// Include browser detection utility if not already included
+if (!function_exists('displayBrowserRedirectMessage')) {
+  include_once('./include/browser_detection.php');
+}
+
+// Get any browser redirect message
+$browser_message = function_exists('displayBrowserRedirectMessage') ? displayBrowserRedirectMessage() : '';
 
 ?>
 
-<div style="padding-top: 5%;"  class="login-box">
+<div style="padding-top: 5%;" class="login-box">
   <div class="card">
     <div class="card-header">
       <h3><?= $_please_login ?></h3>
@@ -29,40 +36,46 @@ session_start();
       <div class="text-center pd-5">
         <img src="img/favicon.png" alt="WIFI-DESA Logo">
       </div>
-      <div  class="text-center">
-      <span style="font-size: 25px; margin: 10px;">WIFI DESA</span>
+      <div class="text-center">
+        <span style="font-size: 25px; margin: 10px;">WIFI DESA</span>
       </div>
+      <?php if (!empty($browser_message)): ?>
+        <div class="text-center">
+          <?= $browser_message ?>
+        </div>
+      <?php endif; ?>
       <center>
-      <form autocomplete="off" action="" method="post">
-      <input type="hidden" name="prevent_autofill" id="prevent_autofill" value=""/>
-      <input type="password" name="password_fake" id="password_fake" style="display:none"/>
-      <table class="table" style="width:90%">
-        <tr>
-          <td class="align-middle text-center">
-            <input style="width: 100%; height: 35px; font-size: 16px;" class="form-control" type="text" name="user" id="_username" placeholder="Username" required="1" autocomplete="off" autofocus>
-          </td>
-        </tr>
-        <tr>
-          <td class="align-middle text-center">
-            <input style="width: 100%; height: 35px; font-size: 16px;" class="form-control" type="password" name="pass" placeholder="Password" required="1" autocomplete="new-password">
-          </td>
-        </tr>
-        <tr>
-          <td class="align-middle text-center">
-            <input style="width: 100%; margin-top:20px; height: 35px; font-weight: bold; font-size: 17px;" class="btn-login bg-primary pointer" type="submit" name="login" value="Login">
-          </td>
-        </tr>
-        <tr>
-          <td class="align-middle text-center">
-            <?= $error; ?>
-          </td>
-        </tr>
-      </table>
-      </form>
+        <form autocomplete="off" action="" method="post">
+          <input type="hidden" name="prevent_autofill" id="prevent_autofill" value="" />
+          <input type="password" name="password_fake" id="password_fake" style="display:none" />
+          <table class="table" style="width:90%">
+            <tr>
+              <td class="align-middle text-center">
+                <input style="width: 100%; height: 35px; font-size: 16px;" class="form-control" type="text" name="user" id="_username" placeholder="Username" required="1" autocomplete="off" autofocus>
+              </td>
+            </tr>
+            <tr>
+              <td class="align-middle text-center">
+                <input style="width: 100%; height: 35px; font-size: 16px;" class="form-control" type="password" name="pass" placeholder="Password" required="1" autocomplete="new-password">
+              </td>
+            </tr>
+            <tr>
+              <td class="align-middle text-center">
+                <input style="width: 100%; margin-top:20px; height: 35px; font-weight: bold; font-size: 17px;" class="btn-login bg-primary pointer" type="submit" name="login" value="Login">
+              </td>
+            </tr>
+            <tr>
+              <td class="align-middle text-center">
+                <?= $error; ?>
+              </td>
+            </tr>
+          </table>
+        </form>
       </center>
     </div>
   </div>
 </div>
 
 </body>
+
 </html>

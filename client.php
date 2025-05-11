@@ -25,6 +25,20 @@ $url = $_SERVER['REQUEST_URI'];
 // load session
 session_start();
 
+// Get ID from URL
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+
+// Include browser detection utility
+include_once('./include/browser_detection.php');
+
+// Check if user is using Opera Mini - Opera Mini should not access client interface
+if ($id != "login") {
+  $browser_check = checkBrowserAccess('client');
+  if ($browser_check['redirect']) {
+    performRedirect($browser_check['target'], $browser_check['message']);
+  }
+}
+
 // lang
 include('./lang/isocodelang.php');
 include('./include/lang.php');
@@ -58,12 +72,12 @@ include('./include/readcfg.php');
 include_once('./lib/routeros_api.class.php');
 include_once('./lib/formatbytesbites.php');
 
-$id = $_GET['id'];
-$router = $_GET['router'];
-$session = $_GET['session'];
-$theme = $_GET['theme'];
-$c = $_GET['c'];
-$q = $_GET['q'];
+// Get other URL parameters
+$router = isset($_GET['router']) ? $_GET['router'] : '';
+$session = isset($_GET['session']) ? $_GET['session'] : '';
+$theme = isset($_GET['theme']) ? $_GET['theme'] : '';
+$c = isset($_GET['c']) ? $_GET['c'] : '';
+$q = isset($_GET['q']) ? $_GET['q'] : '';
 
 if ($id == "login" || substr($url, -1) == "p") {
 
@@ -146,9 +160,14 @@ if ($id == "login" || substr($url, -1) == "p") {
   // If it's desired to kill the session, also delete the session cookie
   if (ini_get("session.use_cookies")) {
     $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 42000,
-      $params["path"], $params["domain"],
-      $params["secure"], $params["httponly"]
+    setcookie(
+      session_name(),
+      '',
+      time() - 42000,
+      $params["path"],
+      $params["domain"],
+      $params["secure"],
+      $params["httponly"]
     );
   }
 
