@@ -91,6 +91,7 @@ $will_be_blocked = $is_opera_mini ? 'Client Interface (client.php)' : 'Admin Int
             <p><strong>Detected as Opera Mini:</strong> <?php echo $is_opera_mini ? 'Yes' : 'No'; ?></p>
             <p><strong>Should Access:</strong> <span class="<?php echo $is_opera_mini ? 'admin' : 'client'; ?>"><?php echo $should_access; ?></span></p>
             <p><strong>Will Be Blocked From:</strong> <span class="<?php echo $is_opera_mini ? 'client' : 'admin'; ?>"><?php echo $will_be_blocked; ?></span></p>
+            <p><strong>Note:</strong> All redirects between interfaces are silent - no error messages will be shown when you're redirected to the appropriate interface for your browser.</p>
         </div>
 
         <div>
