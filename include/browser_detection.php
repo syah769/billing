@@ -46,6 +46,13 @@ function checkBrowserAccess($current_page)
 {
     $is_opera_mini = isOperaMini();
 
+    // Skip browser detection for connect operations (critical fix)
+    if (isset($_GET['id']) && $_GET['id'] == 'connect') {
+        return [
+            'redirect' => false
+        ];
+    }
+
     // Log the decision for debugging
     $log_file = './access_decisions.log';
     $log_data = date('Y-m-d H:i:s') . " - Page: " . $current_page . " - Is Opera Mini: " . ($is_opera_mini ? 'Yes' : 'No') . "\n";

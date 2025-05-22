@@ -223,6 +223,11 @@ if ($idleto != "disable") {
   </div>
 
   <script>
+    // Override connect function for client side
+    function connect(e) {
+      $("#temp").load("./client.php?id=connect&session=" + e);
+    }
+
     $(document).ready(function() {
       $(".connect").click(function() {
         notify("<?= $_connecting ?>");
@@ -316,6 +321,11 @@ if ($idleto != "disable") {
     <a href="./?report=selling&idbl=<?= date("m") . date("Y"); ?>&session=<?= $session; ?>" class="menu <?= $sselling; ?>"><i class="nav-icon fa fa-money"></i> <?= $_report ?></a>
   </div>
   <script>
+    // Override connect function for client side
+    function connect(e) {
+      $("#temp").load("./client.php?id=connect&session=" + e);
+    }
+
     $(document).ready(function() {
       $(".connect").change(function() {
         notify("<?= $_connecting ?>");
